@@ -14,6 +14,22 @@ async def on_message(message):
         response = requests.get('https://www.reddit.com/r/dankmemes/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
         resp_url = response.json()[0]['data']['children'][0]['data']['url']
         await client.send_message(message.channel, resp_url)
+    elif message.content.startswith('!pupaf'):
+        response = requests.get('https://www.reddit.com/r/rarepuppers/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
+        resp_url = response.json()[0]['data']['children'][0]['data']['url']
+        await client.send_message(message.channel, resp_url)
+    elif message.content.startswith('!meowaf'):
+        response = requests.get('https://www.reddit.com/r/catpictures/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
+        resp_url = response.json()[0]['data']['children'][0]['data']['url']
+        await client.send_message(message.channel, resp_url)
+    elif message.content.startswith('!loudaf'):
+        response = requests.get('https://www.reddit.com/r/listentothis/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
+        resp_url = response.json()[0]['data']['children'][0]['data']['url']
+        await client.send_message(message.channel, resp_url)
+    elif message.content.startswith('!helpaf'):
+        msg = 'Commands: !spicyaf (memes), !pupaf (puppers), !meowaf (kitties), !loudaf (musika)'
+        await client.send_message(message.channel, msg)
+
 
 @client.event
 async def on_ready():
