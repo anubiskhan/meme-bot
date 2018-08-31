@@ -11,25 +11,22 @@ async def on_message(message):
         return
 
     if message.content.startswith('!spicyaf'):
-        response = requests.get('https://www.reddit.com/r/dankmemes/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
-        resp_url = response.json()[0]['data']['children'][0]['data']['url']
-        await client.send_message(message.channel, resp_url)
+        await grab_post(message, 'dankmemes')
     elif message.content.startswith('!pupaf'):
-        response = requests.get('https://www.reddit.com/r/rarepuppers/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
-        resp_url = response.json()[0]['data']['children'][0]['data']['url']
-        await client.send_message(message.channel, resp_url)
+        await grab_post(message, 'rarepuppers')
     elif message.content.startswith('!meowaf'):
-        response = requests.get('https://www.reddit.com/r/catpictures/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
-        resp_url = response.json()[0]['data']['children'][0]['data']['url']
-        await client.send_message(message.channel, resp_url)
+        await grab_post(message, 'catpictures')
     elif message.content.startswith('!loudaf'):
-        response = requests.get('https://www.reddit.com/r/listentothis/random.json', headers = {'User-agent': 'Anubot - Spicy Memes'})
-        resp_url = response.json()[0]['data']['children'][0]['data']['url']
-        await client.send_message(message.channel, resp_url)
+        await grab_post(message, 'listentothis')
     elif message.content.startswith('!helpaf'):
-        msg = 'Commands: !spicyaf (memes), !pupaf (puppers), !meowaf (kitties), !loudaf (musika)'
+        'Commands: !spicyaf (memes), !pupaf (puppers), !meowaf (kitties), !loudaf (musika)'
         await client.send_message(message.channel, msg)
 
+async def grab_post(message, subreddit_string):
+    url = f'https://www.reddit.com/r/{subreddit_string}/random.json'
+    response = requests.get(url, headers = {'User-agent': 'Anubot - Spicy Memes'})
+    resp_url = response.json()[0]['data']['children'][0]['data']['url']
+    await client.send_message(message.channel, resp_url)
 
 @client.event
 async def on_ready():
